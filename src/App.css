@@ -36,3 +36,20 @@
     transform: rotate(360deg);
   }
 }
+
+.background {
+  min-height: 100vh;
+}
+
+.bg-blue {
+  background-color: #0d67c9;
+}
+
+.text-blue {
+  color: #0d67c9;
+}
+
+.btn {
+  background-color: #0d67c9;
+  color: white;
+}
