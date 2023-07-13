@@ -3,11 +3,10 @@ import { useState } from 'react';
 import Footer from './view-segments/Footer';
 import Header from './view-segments/Header';
 
-import LoginPage from './authentication/LoginPage';
 import LandingPage from './LandingPage';
 import ServicesPage from './ServicesPage';
 import ContactPage from './ContactPage';
-import Tile from '../models/Tile';
+import AboutPage from './AboutPage';
 
 export const AppViews = {
   LoginPage: "LoginPage",
@@ -31,7 +30,7 @@ function App() {
       case AppViews.ServicesPage:
         return (<ServicesPage updateView={setCurrentPage}/>);
       case AppViews.AboutPage:
-        return (<p>Waiting for about page</p>);
+        return (<AboutPage updateView={setCurrentPage}/>);
       case AppViews.ContactPage:
         return (<ContactPage updateView={setCurrentPage}/>);
       default:
