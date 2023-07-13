@@ -11,7 +11,7 @@ function ServiceTile({tileObject, onTileClick}) {
 
 
     return (
-        <div id={tileObj.key} onClick={tileClick} className="d-inline-block m-2 p-2 rounded  bg-white">{tileObj.key} : {tileObj.name} &gt; {tileObj.services.map(service => service.name)}</div>
+        <div id={tileObj.key} onClick={tileClick} style={{height: "150px", width: "150px"}} className="d-inline m-2 p-2 rounded bg-white">{tileObj.key} : {tileObj.name} &gt; {tileObj.services.map(service => service.name + "\n")}</div>
     );
 }
 

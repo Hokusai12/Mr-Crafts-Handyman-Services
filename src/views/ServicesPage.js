@@ -53,6 +53,11 @@ function ServicesPage({updateView}) {
         updateView(page);
     }
 
+    function sendQuote(services) {
+        console.log("Sending Quote!");
+        services.forEach(serv => console.log(serv.name + ": " + serv.price));
+    }
+
     function resetServices() {
         var newArr = services.map((service) => {
             if(!service.isAvailable) {
@@ -77,18 +82,15 @@ function ServicesPage({updateView}) {
     }
     
     return (
-        <>
         <div className="container d-flex flex-column text-white">            
             <h1>Get a Quote Now!</h1>
-            <div className="container p-5 bg-white d-flex justify-content-center">
+            <div className="container p-5 bg-white rounded">
                 <div className="row w-100 gx-5 justify-content-between text-black">
-                    <ServiceTotaler dropTile={dropTile} setSafeDrop={setSafeDrop} safeDrop={safeDrop}/>
+                    <ServiceTotaler dropTile={dropTile} setSafeDrop={setSafeDrop} safeDrop={safeDrop} sendQuote={sendQuote}/>
                     <ServiceSelector dropTile={dropTile} tileData={getTileObjsFromServices(services)} safeDrop={safeDrop}/>
                 </div>
             </div>
         </div>
-        <button onClick={() => {_updateView(AppViews.LandingPage)}}>Homepage</button>
-        </>
     );
 }
 

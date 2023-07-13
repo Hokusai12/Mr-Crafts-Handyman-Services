@@ -10,7 +10,6 @@ import AboutPage from './AboutPage';
 
 export const AppViews = {
   LoginPage: "LoginPage",
-  LandingPage: "LandingPage",
   ServicesPage: "ServicesPage",
   AboutPage: "AboutPage",
   ContactPage: "ContactPage"
@@ -23,8 +22,6 @@ function App() {
   function getViewReactElement(view) {
 
     switch(currentPage) {
-      case AppViews.LoginPage:
-        return (<LoginPage updateView={setCurrentPage}/>);
       case AppViews.LandingPage:
         return (<LandingPage updateView={setCurrentPage}/>);
       case AppViews.ServicesPage:

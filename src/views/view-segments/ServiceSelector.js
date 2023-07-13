@@ -28,17 +28,21 @@ function ServiceSelector({dropTile, tileData, safeDrop}) {
 
     function tileClick(services) {
         setView("services");
+        document.getElementById("service-select-div").classList.toggle("justify-content-center");
+        document.getElementById("service-select-div").classList.toggle("d-flex");
         setServices(services.map(service => service));
     }
 
     function switchToTileView() {
         setView("tiles");
+        document.getElementById("service-select-div").classList.toggle("justify-content-center");
+        document.getElementById("service-select-div").classList.toggle("d-flex");
         setServices([]);
     }
     
 
     return (
-        <div id="service-select-div" className="col-4 bg-blue p-3 rounded text-black d-flex flex-wrap flex-column">
+        <div id="service-select-div" className="col-4 bg-blue p-2 rounded text-black d-flex flex-wrap justify-content-center">
             {
                 (view === "services") 
                     ? <p onClick={switchToTileView}>&lt; Go Back</p>
