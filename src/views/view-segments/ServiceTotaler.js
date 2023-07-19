@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-function ServiceTotaler({dropTile, setSafeDrop, safeDrop, sendQuote}) {
+function ServiceTotaler({dropTile, setSafeDrop, safeDrop, sendQuote, needsUpdate}) {
     
     const [services, setServices] = useState([]);
     const [total, setTotal] = useState(0);
@@ -23,7 +23,6 @@ function ServiceTotaler({dropTile, setSafeDrop, safeDrop, sendQuote}) {
     
     function onDragLeave() {
         setSafeDrop(false);
-        console.log("SafeDrop: false");
     }
 
     function dragOver(ev) {
@@ -33,10 +32,17 @@ function ServiceTotaler({dropTile, setSafeDrop, safeDrop, sendQuote}) {
         }
     }
 
+    function removeService(service) {
+        var newServArr = services.filter((serv) => serv.id !== service.id);
+        service.isAvailable = true;
+        setServices(newServArr.map(serv => serv));
+        setTotal(total - service.price);
+    }
+
     return (
         <div id="service-total-div" onDrop={(e) => onDropTile(e)} onDragLeave={onDragLeave} onDragOver={(ev) => {dragOver(ev)}} className="col-4 bg-blue p-3 rounded">
             {
-                services.map(service => <div onDragOver={(ev) => {dragOver(ev)}} servicekey={service.key} className="bg-white rounded m-2 p-2">{service.name}: {service.price}</div>)
+                services.map(service => <div onDragOver={(ev) => {dragOver(ev)}} servicekey={service.key} className="bg-white rounded m-2 p-2 d-flex justify-content-between"><span>{service.name}: {service.price}</span><span onClick={() => { removeService(service) }}>X</span></div>)
             }
             <p>Total: {total}</p>
             <button onClick={() => {_sendQuote(services)}} className="btn btn-light">Send Quote</button>

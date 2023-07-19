@@ -1,11 +1,20 @@
 import ServiceTile from './ServiceTile';
 import { useState } from 'react';
 
-function ServiceSelector({dropTile, tileData, safeDrop}) {
+function ServiceSelector({dropTile, tileData, safeDrop, needsUpdate}) {
 
     const [view, setView] = useState("tiles");
     const [services, setServices] = useState([]);
 
+    if(needsUpdate) {
+        updateServices();
+    }
+
+    function updateServices() {
+        if(services !== null || services !== []) {
+
+        }
+    }
 
     function onDrag(ev) {
         var serviceKey = ev.target.getAttribute("servicekey")

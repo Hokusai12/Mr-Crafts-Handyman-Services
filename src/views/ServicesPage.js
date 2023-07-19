@@ -1,13 +1,17 @@
-import {AppViews} from './App';
+import { AppViews } from './App';
 import { useState } from 'react';
+import emailjs from '@emailjs/browser';
 
 import Tile from '../models/Tile';
 import Service from '../models/Service';
 
+
 import ServiceSelector from './view-segments/ServiceSelector';
 import ServiceTotaler from './view-segments/ServiceTotaler';
 
-var servArr = new Array();
+var servArr = [];
+
+emailjs.init('mA1yWcrKrTFHusgtw');
 
 function initServices() {
     servArr.push(new Service(0, "Lawncare", "Lawnmowing", 30, true));
@@ -45,6 +49,7 @@ function ServicesPage({updateView}) {
 
     const [services, setServices] = useState(servArr.map(service => service));
     const [safeDrop, setSafeDrop] = useState(false);
+    const [needsUpdate, setNeedsUpdate] = useState(false);
 
     function _updateView(page) {
         if(page !== AppViews.ContactPage) { //Filler page, need to update when transaction pages are made
@@ -55,7 +60,21 @@ function ServicesPage({updateView}) {
 
     function sendQuote(services) {
         console.log("Sending Quote!");
-        services.forEach(serv => console.log(serv.name + ": " + serv.price));
+        emailjs.send(
+            'default_service', 
+            'quote_form', 
+        {
+            'quote_id': 1,
+            'from_name': 'Test',
+            'services': services.map((serv) => serv.name),
+            'note': 'Thanks!'
+        }
+        ).then((response) => {
+            console.log('SUCCESS!!!', response.status, response.text);
+        },
+        (err) => {
+            console.log('FAILED!!!', err);
+        })
     }
 
     function resetServices() {
@@ -86,8 +105,8 @@ function ServicesPage({updateView}) {
             <h1>Get a Quote Now!</h1>
             <div className="container p-5 bg-white rounded">
                 <div className="row w-100 gx-5 justify-content-between text-black">
-                    <ServiceTotaler dropTile={dropTile} setSafeDrop={setSafeDrop} safeDrop={safeDrop} sendQuote={sendQuote}/>
-                    <ServiceSelector dropTile={dropTile} tileData={getTileObjsFromServices(services)} safeDrop={safeDrop}/>
+                    <ServiceTotaler dropTile={dropTile} setSafeDrop={setSafeDrop} safeDrop={safeDrop} sendQuote={sendQuote} needsUpdate={needsUpdate}/>
+                        <ServiceSelector dropTile={dropTile} tileData={getTileObjsFromServices(services)} safeDrop={safeDrop} needsUpdate={needsUpdate}/>
                 </div>
             </div>
         </div>
